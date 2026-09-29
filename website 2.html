@@ -1,0 +1,2753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>InternFind — Find Your Next Internship</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: #f7f8fc;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #635bff;
+            --primary-dark: #5048db;
+            --purple: #8b5cf6;
+            --blue: #3b82f6;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --red: #ef4444;
+            --dark: #111827;
+            --gray: #6b7280;
+            --light: #f7f8fc;
+            --white: #ffffff;
+            --border: #e5e7eb;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 76px;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(229,231,235,0.8);
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            height: 100%;
+            margin: auto;
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--purple)
+            );
+
+            box-shadow: 0 8px 25px rgba(99,91,255,0.28);
+        }
+
+        .logo-text {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            padding: 11px 18px;
+            border-radius: 12px;
+            background: var(--dark);
+            color: white !important;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            position: relative;
+            min-height: 600px;
+            padding: 90px 20px 100px;
+            overflow: hidden;
+
+            background:
+                radial-gradient(circle at 10% 20%, rgba(99,91,255,0.16), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(139,92,246,0.14), transparent 30%),
+                linear-gradient(180deg, #ffffff, #f7f8fc);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(99,91,255,0.08);
+            filter: blur(80px);
+            right: -150px;
+            top: 100px;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 1100px;
+            margin: auto;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 15px;
+            margin-bottom: 25px;
+
+            border: 1px solid #ddd9ff;
+            border-radius: 50px;
+
+            background: #f2f1ff;
+            color: var(--primary);
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .hero h1 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 1.02;
+            letter-spacing: -3px;
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--purple),
+                #ec4899
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 25px auto 35px;
+            color: var(--gray);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-box {
+            max-width: 1050px;
+            margin: auto;
+
+            padding: 10px;
+
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr auto;
+            gap: 8px;
+
+            background: white;
+            border: 1px solid #e7e7ee;
+            border-radius: 20px;
+
+            box-shadow:
+                0 20px 60px rgba(31,41,55,0.10),
+                0 3px 10px rgba(31,41,55,0.04);
+        }
+
+        .search-input {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 0 16px;
+            height: 58px;
+
+            border-radius: 14px;
+            background: #f8f8fb;
+        }
+
+        .search-input span {
+            font-size: 18px;
+        }
+
+        .search-input input,
+        .search-input select {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+
+            font-family: inherit;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            height: 58px;
+            padding: 0 28px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--purple)
+            );
+
+            color: white;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+
+            box-shadow: 0 8px 25px rgba(99,91,255,0.25);
+            transition: 0.25s;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(99,91,255,0.35);
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            max-width: 1000px;
+            margin: -35px auto 0;
+            position: relative;
+            z-index: 5;
+
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+
+            box-shadow: 0 20px 50px rgba(17,24,39,0.08);
+            overflow: hidden;
+        }
+
+        .stat {
+            padding: 25px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat strong {
+            display: block;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 27px;
+            color: var(--dark);
+        }
+
+        .stat span {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .section {
+            max-width: 1250px;
+            margin: auto;
+            padding: 90px 25px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 38px;
+            letter-spacing: -1.5px;
+        }
+
+        .section-title p {
+            margin-top: 8px;
+            color: var(--gray);
+        }
+
+        .results-count {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* ================= FILTERS ================= */
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .filter {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            font-family: inherit;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .filter.active {
+            color: var(--primary);
+            border-color: #cfcaff;
+            background: #f1f0ff;
+        }
+
+        .clear-btn {
+            margin-left: auto;
+            border: none;
+            background: transparent;
+            color: var(--red);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+        }
+
+        /* ================= CARDS ================= */
+
+        .internship-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 23px;
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                border-color 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: #d7d4ff;
+            box-shadow: 0 20px 45px rgba(17,24,39,0.10);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .company-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #eeeaff,
+                #e9e3ff
+            );
+
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 19px;
+        }
+
+        .save {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            background: white;
+            cursor: pointer;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        .save:hover {
+            border-color: var(--primary);
+        }
+
+        .save.saved {
+            color: var(--primary);
+            background: #f1f0ff;
+            border-color: #d7d2ff;
+        }
+
+        .card h3 {
+            margin-top: 20px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 20px;
+        }
+
+        .company {
+            margin-top: 6px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 18px 0;
+        }
+
+        .tag {
+            padding: 6px 9px;
+            background: #f4f5f8;
+            border-radius: 7px;
+            font-size: 11px;
+            color: #4b5563;
+        }
+
+        .tag.paid {
+            color: #047857;
+            background: #ecfdf5;
+        }
+
+        .tag.remote {
+            color: #1d4ed8;
+            background: #eff6ff;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--gray);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .distance {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 20px;
+            padding-top: 18px;
+
+            border-top: 1px solid #f0f0f3;
+        }
+
+        .salary {
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .view-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+
+            background: var(--dark);
+            color: white;
+
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .view-btn:hover {
+            background: var(--primary);
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 70px 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty h3 {
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .empty p {
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        /* ================= HOW IT WORKS ================= */
+
+        .how-section {
+            background: #111827;
+            color: white;
+        }
+
+        .how-container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 90px 25px;
+        }
+
+        .how-title {
+            text-align: center;
+            max-width: 650px;
+            margin: auto auto 50px;
+        }
+
+        .how-title h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 42px;
+        }
+
+        .how-title p {
+            color: #9ca3af;
+            margin-top: 12px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 18px;
+        }
+
+        .step {
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(99,91,255,0.25);
+            color: #b8b3ff;
+            font-weight: 800;
+        }
+
+        .step h3 {
+            margin-top: 20px;
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .step p {
+            color: #9ca3af;
+            margin-top: 8px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* ================= QR SECTION ================= */
+
+        .qr-section {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 50px 30px;
+
+            border-radius: 30px;
+
+            background:
+                radial-gradient(circle at 10% 20%, rgba(99,91,255,0.12), transparent 30%),
+                white;
+
+            border: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .qr-text {
+            max-width: 600px;
+        }
+
+        .qr-text h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 35px;
+        }
+
+        .qr-text p {
+            color: var(--gray);
+            margin-top: 12px;
+            line-height: 1.7;
+        }
+
+        .qr-box {
+            width: 170px;
+            height: 170px;
+
+            border: 2px dashed #cfcaff;
+            border-radius: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fafaff;
+            color: var(--primary);
+            text-align: center;
+            font-size: 13px;
+            padding: 20px;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 65px 30px;
+            border-radius: 30px;
+
+            text-align: center;
+            color: white;
+
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.16), transparent 30%),
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--purple)
+                );
+        }
+
+        .cta h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 42px;
+        }
+
+        .cta p {
+            margin: 12px auto 25px;
+            max-width: 550px;
+            color: #e7e5ff;
+        }
+
+        .cta button {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: var(--primary);
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #0b1120;
+            color: white;
+            padding: 55px 25px 25px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            padding-bottom: 35px;
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-brand p {
+            margin-top: 15px;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #9ca3af;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(17,24,39,0.65);
+            backdrop-filter: blur(7px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(950px,100%);
+            max-height: 90vh;
+            overflow-y: auto;
+
+            background: white;
+            border-radius: 25px;
+
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+
+            animation: modalIn 0.25s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .modal-title {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-title h2 {
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .close {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #f3f4f6;
+
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            padding: 17px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .detail-item small {
+            display: block;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .detail-item strong {
+            font-size: 14px;
+        }
+
+        .description {
+            line-height: 1.8;
+            color: #4b5563;
+            margin-bottom: 25px;
+        }
+
+        .map-title {
+            font-family: "Space Grotesk", sans-serif;
+            margin-bottom: 12px;
+        }
+
+        .map {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 17px;
+        }
+
+        .distance-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            margin-top: 15px;
+            padding: 17px;
+
+            border-radius: 15px;
+            background: #f1f0ff;
+        }
+
+        .distance-box strong {
+            color: var(--primary);
+        }
+
+        .direction-btn {
+            padding: 11px 17px;
+            border: none;
+            border-radius: 10px;
+
+            background: var(--dark);
+            color: white;
+
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+        }
+
+        .apply-btn {
+            width: 100%;
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 13px;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--purple)
+            );
+
+            color: white;
+            font-family: inherit;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 5000;
+
+            padding: 14px 18px;
+
+            background: #111827;
+            color: white;
+
+            border-radius: 12px;
+
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+
+            transform: translateY(100px);
+            opacity: 0;
+
+            transition: 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1000px) {
+
+            .search-box {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-btn {
+                grid-column: span 2;
+            }
+
+            .internship-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:700px) {
+
+            .navbar {
+                height: 68px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 65px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .search-btn {
+                grid-column: auto;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2,1fr);
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .stat:nth-child(2) {
+                border-right: none;
+            }
+
+            .stat:nth-child(3),
+            .stat:nth-child(4) {
+                border-top: 1px solid var(--border);
+            }
+
+            .internship-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .results-count {
+                margin-top: 10px;
+            }
+
+            .qr-section {
+                margin-left: 20px;
+                margin-right: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                gap: 35px;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .distance-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .direction-btn {
+                width: 100%;
+            }
+
+            .cta {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="#" class="logo">
+
+            <div class="logo-icon">
+                IF
+            </div>
+
+            <div class="logo-text">
+                Intern<span>Find</span>
+            </div>
+
+        </a>
+
+        <div class="nav-links">
+
+            <a href="#internships">Internships</a>
+            <a href="#how">How It Works</a>
+            <a href="#about">About</a>
+
+            <a href="#internships" class="nav-btn">
+                Find Internship
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            ✦ Built for students & future professionals
+        </div>
+
+        <h1>
+            Find the right
+            <span>internship</span>
+            near you.
+        </h1>
+
+        <p>
+            Discover internships based on your skills, interests,
+            location and career goals — all in one simple platform.
+        </p>
+
+
+        <div class="search-box">
+
+            <div class="search-input">
+
+                <span>🔎</span>
+
+                <input
+                    id="keywordInput"
+                    type="text"
+                    placeholder="Job title, skill or company"
+                >
+
+            </div>
+
+
+            <div class="search-input">
+
+                <span>📍</span>
+
+                <input
+                    id="locationInput"
+                    type="text"
+                    placeholder="City or area"
+                >
+
+            </div>
+
+
+            <div class="search-input">
+
+                <span>💼</span>
+
+                <select id="categoryInput">
+
+                    <option value="">All categories</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Data">Data</option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="search-btn"
+                onclick="searchInternships()"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<div class="stats">
+
+    <div class="stat">
+        <strong>500+</strong>
+        <span>Internships</span>
+    </div>
+
+    <div class="stat">
+        <strong>100+</strong>
+        <span>Companies</span>
+    </div>
+
+    <div class="stat">
+        <strong>25+</strong>
+        <span>Locations</span>
+    </div>
+
+    <div class="stat">
+        <strong>10K+</strong>
+        <span>Students</span>
+    </div>
+
+</div>
+
+
+<!-- ================= INTERNSHIPS ================= -->
+
+<section class="section" id="internships">
+
+    <div class="section-heading">
+
+        <div class="section-title">
+
+            <h2>Explore internships</h2>
+
+            <p>
+                Find opportunities that match your career goals.
+            </p>
+
+        </div>
+
+        <div class="results-count" id="resultsCount">
+            Showing internships
+        </div>
+
+    </div>
+
+
+    <div class="filters">
+
+        <button
+            class="filter active"
+            onclick="setMode('All',this)"
+        >
+            All
+        </button>
+
+        <button
+            class="filter"
+            onclick="setMode('Remote',this)"
+        >
+            Remote
+        </button>
+
+        <button
+            class="filter"
+            onclick="setMode('Hybrid',this)"
+        >
+            Hybrid
+        </button>
+
+        <button
+            class="filter"
+            onclick="setMode('On-site',this)"
+        >
+            On-site
+        </button>
+
+        <button
+            class="filter"
+            onclick="setPayment('Paid',this)"
+        >
+            Paid
+        </button>
+
+        <button
+            class="filter"
+            onclick="setPayment('Unpaid',this)"
+        >
+            Unpaid
+        </button>
+
+        <button
+            class="clear-btn"
+            onclick="clearFilters()"
+        >
+            Clear filters
+        </button>
+
+    </div>
+
+
+    <div
+        class="internship-grid"
+        id="internshipGrid"
+    ></div>
+
+
+    <div
+        class="empty"
+        id="emptyState"
+    >
+
+        <div class="empty-icon">
+            🔍
+        </div>
+
+        <h3>
+            No internships found
+        </h3>
+
+        <p>
+            Try changing your search or filters.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how-section" id="how">
+
+    <div class="how-container">
+
+        <div class="how-title">
+
+            <h2>
+                Find your internship in 4 steps
+            </h2>
+
+            <p>
+                InternFind makes internship discovery simple,
+                fast and location-friendly.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <h3>
+                    Search
+                </h3>
+
+                <p>
+                    Search internships using job title,
+                    skills, company or location.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <h3>
+                    Compare
+                </h3>
+
+                <p>
+                    Compare companies, salary,
+                    work mode, duration and distance.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h3>
+                    Check Location
+                </h3>
+
+                <p>
+                    See where the internship is located
+                    and get directions.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <h3>
+                    Apply
+                </h3>
+
+                <p>
+                    Open the internship details and
+                    apply directly to the opportunity.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QR ================= -->
+
+<section class="qr-section" id="about">
+
+    <div class="qr-text">
+
+        <h2>
+            Put InternFind on your resume.
+        </h2>
+
+        <p>
+            Once this website is hosted online, you can generate
+            a QR code for the website and place it on your resume,
+            portfolio or LinkedIn profile.
+        </p>
+
+        <p>
+            <strong>
+                QR code will be added after your website gets a public URL.
+            </strong>
+        </p>
+
+    </div>
+
+
+    <div class="qr-box">
+
+        📱
+
+        <br>
+
+        QR CODE
+
+        <br>
+
+        Coming Soon
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta">
+
+    <h2>
+        Your next opportunity is waiting.
+    </h2>
+
+    <p>
+        Start exploring internships and take the next step
+        toward your career.
+    </p>
+
+    <button onclick="scrollToInternships()">
+        Explore Internships →
+    </button>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <div class="logo">
+
+                    <div class="logo-icon">
+                        IF
+                    </div>
+
+                    <div class="logo-text" style="color:white;">
+                        Intern<span>Find</span>
+                    </div>
+
+                </div>
+
+                <p>
+                    A simple platform to help students discover
+                    internships based on skills, interests and location.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div class="footer-column">
+
+                    <h4>Platform</h4>
+
+                    <a href="#internships">
+                        Find Internships
+                    </a>
+
+                    <a href="#how">
+                        How It Works
+                    </a>
+
+                    <a href="#">
+                        Companies
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>Project</h4>
+
+                    <a href="#about">
+                        About InternFind
+                    </a>
+
+                    <a href="#">
+                        Contact
+                    </a>
+
+                    <a href="#">
+                        Privacy
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 InternFind. Built for students and future professionals.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+    class="modal"
+    id="detailModal"
+    onclick="closeModalOutside(event)"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+
+                <div
+                    class="company-logo"
+                    id="modalLogo"
+                >
+                    IF
+                </div>
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Internship
+                    </h2>
+
+                    <p
+                        class="company"
+                        id="modalCompany"
+                    >
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="detail-grid">
+
+                <div class="detail-item">
+
+                    <small>📍 Location</small>
+
+                    <strong id="modalLocation">
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <small>💰 Stipend</small>
+
+                    <strong id="modalSalary">
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <small>💼 Work Mode</small>
+
+                    <strong id="modalMode">
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <small>⏱ Duration</small>
+
+                    <strong id="modalDuration">
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <p
+                class="description"
+                id="modalDescription"
+            >
+            </p>
+
+
+            <h3 class="map-title">
+                Internship location
+            </h3>
+
+
+            <iframe
+                class="map"
+                id="mapFrame"
+                loading="lazy"
+                title="Internship location"
+            ></iframe>
+
+
+            <div class="distance-box">
+
+                <div>
+
+                    📏 Distance from you:
+
+                    <strong id="modalDistance">
+                        Location permission needed
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="direction-btn"
+                    onclick="getDirections()"
+                >
+                    🧭 Get Directions
+                </button>
+
+            </div>
+
+
+            <button
+                class="apply-btn"
+                onclick="applyInternship()"
+            >
+                Apply for this Internship →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Saved!
+</div>
+
+
+<script>
+
+    /* ==========================================
+       INTERNSHIP DATA
+       ========================================== */
+
+    const internships = [
+
+        {
+            id: 1,
+            title: "Python Developer Intern",
+            company: "TechNova Solutions",
+            location: "Chennai",
+            area: "Tidel Park",
+            category: "Technology",
+            skills: ["Python", "Django", "SQL"],
+            mode: "Hybrid",
+            payment: "Paid",
+            salary: "₹10,000 / month",
+            duration: "3 Months",
+            latitude: 12.9898,
+            longitude: 80.2480,
+            description:
+                "Work with the development team to build Python-based applications, APIs and database solutions. This internship is suitable for students interested in backend development."
+        },
+
+        {
+            id: 2,
+            title: "Frontend Developer Intern",
+            company: "WebCraft Technologies",
+            location: "Bangalore",
+            area: "Electronic City",
+            category: "Technology",
+            skills: ["HTML", "CSS", "JavaScript"],
+            mode: "Remote",
+            payment: "Paid",
+            salary: "₹12,000 / month",
+            duration: "3 Months",
+            latitude: 12.8452,
+            longitude: 77.6602,
+            description:
+                "Join the frontend team and help build responsive websites and web applications using modern HTML, CSS and JavaScript."
+        },
+
+        {
+            id: 3,
+            title: "UI/UX Design Intern",
+            company: "Creative Pixel Studio",
+            location: "Chennai",
+            area: "Guindy",
+            category: "Design",
+            skills: ["Figma", "UI", "UX"],
+            mode: "On-site",
+            payment: "Paid",
+            salary: "₹8,000 / month",
+            duration: "3 Months",
+            latitude: 13.0067,
+            longitude: 80.2206,
+            description:
+                "Create user interfaces, prototypes and design systems while working closely with developers and product teams."
+        },
+
+        {
+            id: 4,
+            title: "Digital Marketing Intern",
+            company: "GrowthHub Media",
+            location: "Coimbatore",
+            area: "RS Puram",
+            category: "Marketing",
+            skills: ["SEO", "Social Media", "Content"],
+            mode: "Hybrid",
+            payment: "Paid",
+            salary: "₹7,000 / month",
+            duration: "1 Month",
+            latitude: 11.0087,
+            longitude: 76.9519,
+            description:
+                "Learn and work on SEO campaigns, social media marketing, content strategy and digital marketing analytics."
+        },
+
+        {
+            id: 5,
+            title: "Data Analyst Intern",
+            company: "DataSphere Analytics",
+            location: "Hyderabad",
+            area: "HITEC City",
+            category: "Data",
+            skills: ["Python", "Excel", "SQL"],
+            mode: "Hybrid",
+            payment: "Paid",
+            salary: "₹15,000 / month",
+            duration: "6 Months",
+            latitude: 17.4474,
+            longitude: 78.3762,
+            description:
+                "Analyze business data, create dashboards and support the analytics team with data-driven insights."
+        },
+
+        {
+            id: 6,
+            title: "Java Developer Intern",
+            company: "CodeBridge Systems",
+            location: "Chennai",
+            area: "OMR",
+            category: "Technology",
+            skills: ["Java", "Spring Boot", "MySQL"],
+            mode: "On-site",
+            payment: "Paid",
+            salary: "₹9,000 / month",
+            duration: "6 Months",
+            latitude: 12.9165,
+            longitude: 80.2290,
+            description:
+                "Develop backend services using Java and Spring Boot and work with MySQL databases in a real software development environment."
+        },
+
+        {
+            id: 7,
+            title: "Content Writing Intern",
+            company: "Bright Ideas Agency",
+            location: "Chennai",
+            area: "Anna Nagar",
+            category: "Marketing",
+            skills: ["Writing", "Research", "SEO"],
+            mode: "Remote",
+            payment: "Unpaid",
+            salary: "Certificate + Experience",
+            duration: "1 Month",
+            latitude: 13.0878,
+            longitude: 80.2086,
+            description:
+                "Create blogs, website content and social media content while learning SEO-friendly content writing."
+        },
+
+        {
+            id: 8,
+            title: "AI / Machine Learning Intern",
+            company: "FutureMind AI",
+            location: "Bangalore",
+            area: "Whitefield",
+            category: "Data",
+            skills: ["Python", "ML", "AI"],
+            mode: "Hybrid",
+            payment: "Paid",
+            salary: "₹18,000 / month",
+            duration: "6 Months",
+            latitude: 12.9698,
+            longitude: 77.7499,
+            description:
+                "Work on machine learning projects, data preprocessing and AI experiments with an experienced technical team."
+        }
+
+    ];
+
+
+    /* ==========================================
+       VARIABLES
+       ========================================== */
+
+    let currentMode = "All";
+    let currentPayment = "All";
+
+    let selectedInternship = null;
+
+    let userLatitude = null;
+    let userLongitude = null;
+
+
+    /* ==========================================
+       GET USER LOCATION
+       ========================================== */
+
+    function getUserLocation() {
+
+        if (!navigator.geolocation) {
+
+            showToast("Geolocation is not supported by your browser.");
+
+            return;
+
+        }
+
+        navigator.geolocation.getCurrentPosition(
+
+            position => {
+
+                userLatitude = position.coords.latitude;
+                userLongitude = position.coords.longitude;
+
+                showToast("📍 Your location detected!");
+
+                renderInternships();
+
+            },
+
+            error => {
+
+                showToast(
+                    "Location permission was not allowed. Distance will be unavailable."
+                );
+
+            },
+
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 60000
+            }
+
+        );
+
+    }
+
+
+    /* ==========================================
+       DISTANCE CALCULATION
+       ========================================== */
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+
+        const R = 6371;
+
+        const dLat =
+            (lat2 - lat1) *
+            Math.PI / 180;
+
+        const dLon =
+            (lon2 - lon1) *
+            Math.PI / 180;
+
+        const a =
+            Math.sin(dLat / 2) *
+            Math.sin(dLat / 2) +
+
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+
+        const c =
+            2 * Math.atan2(
+                Math.sqrt(a),
+                Math.sqrt(1 - a)
+            );
+
+        return R * c;
+
+    }
+
+
+    function formatDistance(distance) {
+
+        if (distance < 1) {
+
+            return Math.round(distance * 1000) + " m";
+
+        }
+
+        return distance.toFixed(1) + " km";
+
+    }
+
+
+    /* ==========================================
+       RENDER INTERNSHIPS
+       ========================================== */
+
+    function renderInternships() {
+
+        const keyword =
+            document
+                .getElementById("keywordInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+        const location =
+            document
+                .getElementById("locationInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+        const category =
+            document
+                .getElementById("categoryInput")
+                .value;
+
+
+        const filtered =
+            internships.filter(item => {
+
+                const searchText = (
+
+                    item.title +
+                    " " +
+                    item.company +
+                    " " +
+                    item.category +
+                    " " +
+                    item.skills.join(" ")
+
+                ).toLowerCase();
+
+
+                const keywordMatch =
+                    !keyword ||
+                    searchText.includes(keyword);
+
+
+                const locationMatch =
+                    !location ||
+                    (
+                        item.location +
+                        " " +
+                        item.area
+                    )
+                    .toLowerCase()
+                    .includes(location);
+
+
+                const categoryMatch =
+                    !category ||
+                    item.category === category;
+
+
+                const modeMatch =
+                    currentMode === "All" ||
+                    item.mode === currentMode;
+
+
+                const paymentMatch =
+                    currentPayment === "All" ||
+                    item.payment === currentPayment;
+
+
+                return (
+                    keywordMatch &&
+                    locationMatch &&
+                    categoryMatch &&
+                    modeMatch &&
+                    paymentMatch
+                );
+
+            });
+
+
+        const grid =
+            document.getElementById("internshipGrid");
+
+        const empty =
+            document.getElementById("emptyState");
+
+        grid.innerHTML = "";
+
+
+        if (filtered.length === 0) {
+
+            empty.style.display = "block";
+
+        } else {
+
+            empty.style.display = "none";
+
+        }
+
+
+        filtered.forEach(item => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "card";
+
+
+            let distanceHTML = "";
+
+
+            if (
+                userLatitude !== null &&
+                userLongitude !== null
+            ) {
+
+                const distance =
+                    calculateDistance(
+                        userLatitude,
+                        userLongitude,
+                        item.latitude,
+                        item.longitude
+                    );
+
+                distanceHTML = `
+                    <span class="distance">
+                        • ${formatDistance(distance)} away
+                    </span>
+                `;
+
+            }
+
+
+            const saved =
+                localStorage.getItem(
+                    "internship_" + item.id
+                ) === "true";
+
+
+            card.innerHTML = `
+
+                <div class="card-top">
+
+                    <div class="company-logo">
+                        ${getInitials(item.company)}
+                    </div>
+
+                    <button
+                        class="save ${saved ? "saved" : ""}"
+                        onclick="toggleSave(${item.id}, this)"
+                        title="Save internship"
+                    >
+                        ${saved ? "♥" : "♡"}
+                    </button>
+
+                </div>
+
+
+                <h3>
+                    ${item.title}
+                </h3>
+
+
+                <div class="company">
+                    ${item.company}
+                </div>
+
+
+                <div class="tags">
+
+                    <span class="tag">
+                        ${item.category}
+                    </span>
+
+                    <span class="tag ${item.mode === "Remote" ? "remote" : ""}">
+                        ${item.mode}
+                    </span>
+
+                    <span class="tag ${item.payment === "Paid" ? "paid" : ""}">
+                        ${item.payment}
+                    </span>
+
+                </div>
+
+
+                <div class="location">
+
+                    📍
+
+                    ${item.area}, ${item.location}
+
+                    ${distanceHTML}
+
+                </div>
+
+
+                <div class="location">
+
+                    🛠
+
+                    ${item.skills.join(" • ")}
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <div class="salary">
+                        ${item.salary}
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        onclick="openDetails(${item.id})"
+                    >
+                        View Details
+                    </button>
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(card);
+
+        });
+
+
+        document.getElementById("resultsCount").textContent =
+            `${filtered.length} internship${filtered.length !== 1 ? "s" : ""} found`;
+
+    }
+
+
+    /* ==========================================
+       INITIALS
+       ========================================== */
+
+    function getInitials(name) {
+
+        return name
+            .split(" ")
+            .slice(0,2)
+            .map(word => word[0])
+            .join("")
+            .toUpperCase();
+
+    }
+
+
+    /* ==========================================
+       SEARCH
+       ========================================== */
+
+    function searchInternships() {
+
+        renderInternships();
+
+        document
+            .getElementById("internships")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* ==========================================
+       MODE FILTER
+       ========================================== */
+
+    function setMode(mode, button) {
+
+        currentMode = mode;
+
+        document
+            .querySelectorAll(".filter")
+            .forEach(btn => {
+
+                if (
+                    btn.textContent.trim() === mode ||
+                    (mode === "All" &&
+                     btn.textContent.trim() === "All")
+                ) {
+
+                    btn.classList.add("active");
+
+                } else {
+
+                    btn.classList.remove("active");
+
+                }
+
+            });
+
+        currentPayment = "All";
+
+        renderInternships();
+
+    }
+
+
+    /* ==========================================
+       PAYMENT FILTER
+       ========================================== */
+
+    function setPayment(payment, button) {
+
+        currentPayment = payment;
+
+        document
+            .querySelectorAll(".filter")
+            .forEach(btn => {
+
+                btn.classList.remove("active");
+
+            });
+
+        button.classList.add("active");
+
+        renderInternships();
+
+    }
+
+
+    /* ==========================================
+       CLEAR FILTERS
+       ========================================== */
+
+    function clearFilters() {
+
+        document.getElementById("keywordInput").value = "";
+
+        document.getElementById("locationInput").value = "";
+
+        document.getElementById("categoryInput").value = "";
+
+        currentMode = "All";
+
+        currentPayment = "All";
+
+
+        document
+            .querySelectorAll(".filter")
+            .forEach((btn, index) => {
+
+                btn.classList.toggle(
+                    "active",
+                    index === 0
+                );
+
+            });
+
+
+        renderInternships();
+
+    }
+
+
+    /* ==========================================
+       SAVE
+       ========================================== */
+
+    function toggleSave(id, button) {
+
+        const key =
+            "internship_" + id;
+
+        const saved =
+            localStorage.getItem(key) === "true";
+
+
+        if (saved) {
+
+            localStorage.removeItem(key);
+
+            button.classList.remove("saved");
+
+            button.innerHTML = "♡";
+
+            showToast("Removed from saved internships.");
+
+        } else {
+
+            localStorage.setItem(key, "true");
+
+            button.classList.add("saved");
+
+            button.innerHTML = "♥";
+
+            showToast("♥ Internship saved!");
+
+        }
+
+    }
+
+
+    /* ==========================================
+       OPEN DETAILS
+       ========================================== */
+
+    function openDetails(id) {
+
+        selectedInternship =
+            internships.find(
+                item => item.id === id
+            );
+
+
+        if (!selectedInternship) return;
+
+
+        const item =
+            selectedInternship;
+
+
+        document.getElementById("modalLogo")
+            .textContent =
+            getInitials(item.company);
+
+
+        document.getElementById("modalTitle")
+            .textContent =
+            item.title;
+
+
+        document.getElementById("modalCompany")
+            .textContent =
+            item.company;
+
+
+        document.getElementById("modalLocation")
+            .textContent =
+            `${item.area}, ${item.location}`;
+
+
+        document.getElementById("modalSalary")
+            .textContent =
+            item.salary;
+
+
+        document.getElementById("modalMode")
+            .textContent =
+            item.mode;
+
+
+        document.getElementById("modalDuration")
+            .textContent =
+            item.duration;
+
+
+        document.getElementById("modalDescription")
+            .textContent =
+            item.description;
+
+
+        /* OpenStreetMap */
+
+        const mapURL =
+            `https://www.openstreetmap.org/export/embed.html?bbox=` +
+            `${item.longitude - 0.02},` +
+            `${item.latitude - 0.02},` +
+            `${item.longitude + 0.02},` +
+            `${item.latitude + 0.02}` +
+            `&layer=mapnik&marker=` +
+            `${item.latitude},${item.longitude}`;
+
+
+        document.getElementById("mapFrame")
+            .src = mapURL;
+
+
+        /* Distance */
+
+        if (
+            userLatitude !== null &&
+            userLongitude !== null
+        ) {
+
+            const distance =
+                calculateDistance(
+                    userLatitude,
+                    userLongitude,
+                    item.latitude,
+                    item.longitude
+                );
+
+
+            document.getElementById("modalDistance")
+                .textContent =
+                formatDistance(distance);
+
+        } else {
+
+            document.getElementById("modalDistance")
+                .textContent =
+                "Allow location access";
+
+        }
+
+
+        document
+            .getElementById("detailModal")
+            .classList.add("show");
+
+
+        document.body.style.overflow = "hidden";
+
+    }
+
+
+    /* ==========================================
+       CLOSE MODAL
+       ========================================== */
+
+    function closeModal() {
+
+        document
+            .getElementById("detailModal")
+            .classList.remove("show");
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    function closeModalOutside(event) {
+
+        if (
+            event.target.id === "detailModal"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+
+
+    /* ==========================================
+       DIRECTIONS
+       ========================================== */
+
+    function getDirections() {
+
+        if (!selectedInternship) return;
+
+
+        if (
+            userLatitude === null ||
+            userLongitude === null
+        ) {
+
+            showToast(
+                "Please allow location access first."
+            );
+
+            getUserLocation();
+
+            return;
+
+        }
+
+
+        const item =
+            selectedInternship;
+
+
+        const url =
+            `https://www.google.com/maps/dir/?api=1` +
+            `&origin=${userLatitude},${userLongitude}` +
+            `&destination=${item.latitude},${item.longitude}` +
+            `&travelmode=driving`;
+
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+    }
+
+
+    /* ==========================================
+       APPLY
+       ========================================== */
+
+    function applyInternship() {
+
+        if (!selectedInternship) return;
+
+
+        /*
+            Replace this later with the
+            company's actual application URL.
+        */
+
+        showToast(
+            "Application link will be added when the internship data is connected."
+        );
+
+    }
+
+
+    /* ==========================================
+       TOAST
+       ========================================== */
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add("show");
+
+
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 3000);
+
+    }
+
+
+    /* ==========================================
+       SCROLL
+       ========================================== */
+
+    function scrollToInternships() {
+
+        document
+            .getElementById("internships")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* ==========================================
+       ENTER KEY SEARCH
+       ========================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter" &&
+                (
+                    document.activeElement.id ===
+                    "keywordInput" ||
+
+                    document.activeElement.id ===
+                    "locationInput"
+                )
+            ) {
+
+                searchInternships();
+
+            }
+
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       START WEBSITE
+       ========================================== */
+
+    renderInternships();
+
+    getUserLocation();
+
+</script>
+
+</body>
+</html>
